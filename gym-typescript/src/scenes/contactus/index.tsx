@@ -3,24 +3,23 @@ import { motion } from 'framer-motion'
 import { useForm } from "react-hook-form"
 import ContactUsPageGraphic from "@/assets/ContactUsPageGraphic.png"
 import HText from '@/shared/HText'
-import { triggerAsyncId } from 'async_hooks'
 
 type Props = {
     setSelectedPage: (value: SelectedPage) => void,
 }
 
 const ContactUs = ({ setSelectedPage }: Props) => {
-    const inputStyle='mb-5 w-full rounded-lg bg-primary-300 px-5 py-3 placeholder-white';
+    const inputStyle = 'mb-5 w-full rounded-lg bg-primary-300 px-5 py-3 placeholder-white';
 
     const {
         register,
         trigger,
-        formState:{errors}
+        formState: { errors }
     } = useForm();
 
-    const onSubmit=async(e:any)=>{
+    const onSubmit = async (e: any) => {
         const isValid = await trigger();
-        if(!isValid){
+        if (!isValid) {
             e.preventDefault();
         }
     }
@@ -63,18 +62,18 @@ const ContactUs = ({ setSelectedPage }: Props) => {
                         }}
                     >
                         <form
-                         target='_blank'
-                         onSubmit={onSubmit}
-                         method="POST"
-                         action='https://formsubmit.co/9ab420d7bcab3ede62eaa93f97c6b5a0'
+                            target='_blank'
+                            onSubmit={onSubmit}
+                            method="POST"
+                            action='https://formsubmit.co/9ab420d7bcab3ede62eaa93f97c6b5a0'
                         >
-                            <input 
+                            <input
                                 className={inputStyle}
-                                type="text" 
+                                type="text"
                                 placeholder='NAME'
                                 {...register("name", {
-                                    required:true,
-                                    maxLength:100,
+                                    required: true,
+                                    maxLength: 100,
                                 })}
                             />
                             {errors.name && (
@@ -83,13 +82,13 @@ const ContactUs = ({ setSelectedPage }: Props) => {
                                     {errors.name.type === "maxLength" && "Max length is 100 charater."}
                                 </p>
                             )}
-                            <input 
+                            <input
                                 className={inputStyle}
-                                type="text" 
+                                type="text"
                                 placeholder='EMAIL'
                                 {...register("email", {
-                                    required:true,
-                                    pattern:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    required: true,
+                                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                 })}
                             />
                             {errors.email && (
@@ -98,14 +97,14 @@ const ContactUs = ({ setSelectedPage }: Props) => {
                                     {errors.email.type === "pattern" && "Invalid email address."}
                                 </p>
                             )}
-                             <textarea 
+                            <textarea
                                 className={inputStyle}
                                 rows={4}
                                 cols={50}
                                 placeholder='MESSAGE'
                                 {...register("message", {
-                                    required:true,
-                                    maxLength:2000,
+                                    required: true,
+                                    maxLength: 2000,
                                 })}
                             />
                             {errors.message && (
@@ -127,7 +126,7 @@ const ContactUs = ({ setSelectedPage }: Props) => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.5 }}
-                        transition={{delay:0.2, duration: 0.5 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
                         variants={{
                             hidden: { opacity: 0, y: 50 },
                             visible: { opacity: 1, y: 0 }
