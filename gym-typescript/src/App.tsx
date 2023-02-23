@@ -1,5 +1,5 @@
 import Navbar from "@/scenes/navbar"
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef } from "react"
 import { SelectedPage } from "@/shared/types";
 import Home from '@/scenes/home'
 import Benefits from '@/scenes/benefits'
@@ -10,7 +10,9 @@ import Footer from "@/scenes/footer";
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfpage, setIsTopOfpage] = useState<boolean>(true)
-
+  const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const sidebarMenuBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,8 +26,20 @@ function App() {
     }
     window.addEventListener("scroll", handleScroll)
     
-    return () => window.removeEventListener("scroll", handleScroll)
+    const closeSidebar = (event:Event)=>{
+      // console.log("@click", isMenuToggled)
+      if(sidebarRef && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)&& sidebarMenuBtnRef && sidebarMenuBtnRef.current && !sidebarMenuBtnRef.current.contains(event.target as Node)){
+        // console.log("click", isMenuToggled)
+        setIsMenuToggled(false)
+      }
+    }
+    document.addEventListener("click", closeSidebar)
 
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      document.removeEventListener("click", closeSidebar)
+      // console.log("unmount", isMenuToggled)
+    }
     
   },[])
   return (
@@ -34,6 +48,10 @@ function App() {
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage}
         isTopOfpage={isTopOfpage}
+        isMenuToggled={isMenuToggled}
+        setIsMenuToggled={setIsMenuToggled}
+        sidebarRef={sidebarRef}
+        sidebarMenuBtnRef={sidebarMenuBtnRef}
       />
       <Home setSelectedPage={setSelectedPage} />
       <Benefits setSelectedPage={setSelectedPage} />

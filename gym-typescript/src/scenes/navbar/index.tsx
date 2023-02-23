@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import {Ref} from 'react'
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline"
 import Logo from "@/assets/Logo.png"
 import Link from "./Link"
@@ -10,13 +10,24 @@ type Props = {
   isTopOfpage: boolean,
   selectedPage: SelectedPage,
   setSelectedPage: (value: SelectedPage) => void;
+  isMenuToggled:boolean;
+  setIsMenuToggled:(value:boolean)=>void;
+  sidebarRef:Ref<HTMLDivElement> | null,
+  sidebarMenuBtnRef:Ref<HTMLButtonElement> | null,
 }
 
-const Navbar = ({ isTopOfpage, selectedPage, setSelectedPage }: Props) => {
+const Navbar = ({ 
+  isTopOfpage, 
+  selectedPage, 
+  setSelectedPage,
+  isMenuToggled,
+  setIsMenuToggled,
+  sidebarRef,
+  sidebarMenuBtnRef
+}: Props) => {
   const flexBetween = "flex items-center justify-between";
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
   const navbarBackground = isTopOfpage ? "" : "bg-primary-100 drop-shadow"
-  const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
 
   return (
     <nav>
@@ -61,6 +72,7 @@ const Navbar = ({ isTopOfpage, selectedPage, setSelectedPage }: Props) => {
               <button
                 className="rounded-full bg-secondary-500 p-2"
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
+                ref={sidebarMenuBtnRef}
               >
                 <Bars3Icon className="h-6 w-6 text-white" />
               </button>
@@ -70,7 +82,7 @@ const Navbar = ({ isTopOfpage, selectedPage, setSelectedPage }: Props) => {
       </div>
       {/* mobile menu modal */}
       {!isAboveMediumScreens && isMenuToggled && (
-        <div className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl">
+        <div ref={sidebarRef} className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl">
           {/* close icon */}
           <div className="flex justify-end p-12">
             <button
