@@ -1,26 +1,21 @@
-import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
+import {useState, useEffect} from "react"
+import SpeechToText from "./components/SpeechToText";
+import TranslatedText from "./components/TranslatedText";
+import {myTranslator} from "./utilities/translator";
 
 function App() {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  const [text, setText] = useState();
+  useEffect(() => {
+    console.log("text: ", text)
+    myTranslator(text);
+  }, [text]);
 
   return (
-    <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p>
-      <button onClick={()=>SpeechRecognition.startListening({continuous:true})}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
+    <div className="app">
+      <SpeechToText setText={setText} />
+      <TranslatedText text={text} />
     </div>
   );
 }
 
-export default App
+export default App;
