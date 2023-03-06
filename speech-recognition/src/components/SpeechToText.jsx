@@ -16,8 +16,8 @@ function SpeechToText(Props) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-  const handleChangeTranscript = (e)=>{
-    return setText(e.target.value)
+  const handleChangeTranscript = (text)=>{
+    return setText(text)
   }
   return (
     <div className="speech-container">
@@ -33,11 +33,14 @@ function SpeechToText(Props) {
           >
             Start
           </button>
-          <button onClick={SpeechRecognition.stopListening}>Stop</button>
+          <button onClick={()=>{
+            SpeechRecognition.stopListening()
+            handleChangeTranscript(transcript)
+          }}>Stop</button>
           <button onClick={resetTranscript}>Reset</button>
         </div>
       </div>
-      <textarea className="text-container" value={transcript} onChange={(e)=> handleChangeTranscript(e)}></textarea>
+      <textarea className="text-container" value={transcript} onChange={(e)=> handleChangeTranscript(e.target.value)}></textarea>
     </div>
   );
 }
