@@ -60,7 +60,7 @@ button:active, button:focus{
     padding: 5px;
     height: 80%;
     border: 1px solid pink;
-    overflow: scroll;
+    /* overflow-y: scroll; */
     border-radius: 10px;
 }
 .text-container{
@@ -68,6 +68,7 @@ button:active, button:focus{
     padding: 5px;
     height: 45%;
     border: 1px solid pink;
-    overflow: scroll;
+    overflow-y: scroll;
     border-radius: 10px;
+    word-wrap: break-word;
 }

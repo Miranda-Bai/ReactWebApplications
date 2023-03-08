@@ -1,8 +1,8 @@
 import React from "react";
 
 function TranslatedText(Props) {
-  const { text } = Props;
-  return <div className="text-container">{text}</div>;
+  const { translatedText } = Props;
+  return <div className="text-container">{translatedText}</div>;
 }
 
 export default TranslatedText;

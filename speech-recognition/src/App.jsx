@@ -5,15 +5,16 @@ import {myTranslator} from "./utilities/translator";
 
 function App() {
   const [text, setText] = useState();
+  let translatedText = ""
   useEffect(() => {
     console.log("text: ", text)
-    myTranslator(text);
+    translatedText = myTranslator(text);
   }, [text]);
 
   return (
     <div className="app">
       <SpeechToText setText={setText} />
-      <TranslatedText text={text} />
+      <TranslatedText translatedText={translatedText} />
     </div>
   );
 }

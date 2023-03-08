@@ -1,7 +1,6 @@
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { useState } from "react";
 
 function SpeechToText(Props) {
  const {setText} = Props;
@@ -40,7 +39,7 @@ function SpeechToText(Props) {
           <button onClick={resetTranscript}>Reset</button>
         </div>
       </div>
-      <textarea className="text-container" value={transcript} onChange={(e)=> handleChangeTranscript(e.target.value)}></textarea>
+      <textarea className="text-container" defaultValue={transcript}  onChange={(e)=> handleChangeTranscript(e.target.value)}></textarea>
     </div>
   );
 }
